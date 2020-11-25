@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobile</title>
+    <script src="my.js"></script>
+    <link rel="stylesheet" href="my.css">
+</head>
+<body>
+<div class="mobile">
+    <button onclick="onMobile(iphone)">ON</button>
+    <button onclick="offMobile(iphone)">OFF</button>
+    <div id="iphoneStatus">
+        <h1 id="iphone">Mobile</h1>
+    <button onclick="charge(iphone)">Charge</button>
+    <span id="iphone-bettery"></span>
+    <textarea id="iphone-inbox" disabled></textarea><br>
+    <textarea id="iphone-outbox" disabled></textarea><br>
+    <input id="iphone-mess" oninput="writeMess(iphone,this.value)" disabled>
+    <button onclick="sendMess(iphone,samsung)">Send</button>
+        <table id="iphone-board">
+
+        </table>
+    </div>
+</div>
+<div class="mobile">
+    <button onclick="onMobile(samsung)">ON</button>
+    <button onclick="offMobile(samsung)">OFF</button>
+    <div id="samsungStatus">
+    <h1 id="samsung">Mobile</h1>
+    <button onclick="charge(samsung)">Charge</button>
+    <span id="samsung-bettery"></span>
+    <textarea id="samsung-inbox" disabled></textarea><br>
+    <textarea id="samsung-outbox" disabled></textarea><br>
+    <input id="samsung-mess" oninput="writeMess(samsung,this.value)" disabled>
+    <button onclick="sendMess(samsung,iphone)">Send</button>
+        <table id="samsung-board">
+
+        </table>
+    </div>
+</div>
+</body>
+<script src="my.js"></script>
+<script>
+    let iphone= new Moblie("12 Pro", "iphone",99);
+    let samsung = new Moblie("S10 Edge","samsung",99);
+    function writeMess(mobile,mess){
+        mobile.writeMesg(mess)
+    }
+    function sendMess(mobile1,mobile2){
+        mobile1.sendMesg(mobile2)
+        clearInput(mobile1);
+        dislayAll();
+        mobile1.board="";
+    }
+    function dislay(mobile){
+        document.getElementById(mobile.brand+"").innerText=mobile.brand+mobile.name;
+        document.getElementById(mobile.brand+"-inbox").innerText=mobile.Inbox;
+        document.getElementById(mobile.brand+"-outbox").innerText=mobile.Outbox;
+    }
+    function dislayAll(){
+        dislay(iphone);
+        dislay(samsung);
+        showBettery(iphone);
+        showBettery(samsung);
+    }
+    function clearInput(mobile){
+        document.getElementById(mobile.brand+"-mess").value="";
+    }
+    function showBettery(mobile){
+        document.getElementById(mobile.brand+"-bettery").innerText=mobile.showBettery()+"%";
+    }
+    function charge(mobile){
+        if(mobile.bettery<100){
+        mobile.chargeBettery()}
+        dislayAll()
+    }
+    function offMobile(mobile){
+        document.getElementById(mobile.brand+"Status").style.display="none";
+
+    }
+    function onMobile(mobile){
+        document.getElementById(mobile.brand+"Status").style.display="block";
+    }
+    function showBoard(mobile){
+        let strI='';
+        for (let i = 0; i < 3; i++) {
+            strI+='<tr>';
+            for (let j = 0; j < 10; j++) {
+                strI+=`<td><button onclick="fillTextE(${mobile.brand},this.textContent)">${arr[i][j]}</button></td>`
+            }
+            strI+=`</tr>`
+        document.getElementById(mobile.brand+"-board").innerHTML=strI;
+    }
+    }
+    function fillTextE(mobile,context){
+        mobile.board+=context;
+        document.getElementById(mobile.brand+"-mess").value=mobile.board;
+        mobile.writeMesg(mobile.board);
+    }
+    showBoard(iphone);
+    showBoard(samsung);
+    dislayAll();
+
+</script>
+</html>

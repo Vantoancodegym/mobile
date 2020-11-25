@@ -1,0 +1,29 @@
+.mobile{
+    width: 300px;
+    height: 430px;
+    display: inline-block;
+    background-color: yellow;
+    border: 2px solid black;
+    padding: 10px;
+}
+textarea{
+    width: 294px;
+    height: 100px;
+}
+input{
+    width: 240px;
+}
+h1{
+    text-align: center;
+}
+div#samsung{
+    background-color: blue;
+}
+span{
+    text-align: right;
+}
+table {
+    width: 100%;
+    border: 1px solid black;
+
+}
